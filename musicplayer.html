@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>music-player</title>
+    <link rel="stylesheet" type="text/css" href="musicplayer.css" />
+</head>
+
+<body>
+    <div class="bg-wrap">
+        <div class="main-panel">
+            <div class="header-bar">
+                <img id="logo" src="img/player_title.png" />
+                <div class="search">
+                    <input id="seachsong" type="text" v-model="songname" @keyup.enter="querySong" />
+                    <img id="zoom" src="img/zoom.png" @click="querySong" />
+                </div>
+            </div>
+            <div class="content-panel">
+                <div class="center" :class="{playing:isPlaying}">
+                    <img src="img/line.png" style="float: left;" />
+                    <img src="img/player_bar.png" class="play-bar" />
+                    <img :src="coverurl==''?'./img/cover.png':coverurl" class="cover autorotate" />
+                    <img src="img/disc.png" class="disc autorotate" />
+                    <img src="img/line.png" style="float: right;" />
+                </div>
+                <div class="left-list">
+                    <ul>
+                        <li v-for="item in songlist"><a @click="playSong(item.id)" href="javascript:;"></a>
+                            <span>{{item.name}}</span><i v-if="item.mvid" @click="playMV(item.mvid)"></i>
+                        </li>
+                    </ul>
+                </div>
+                <div class="right-list">
+                    <span>热门留言</span>
+                    <div class="comment-list">
+                        <ul>
+                            <li v-for="item in comList">
+                                <img :src="item.user.avatarUrl" class="user-img" />
+                                <div class="user-info">
+                                    <span class="user-id">{{item.user.nickname}}</span>
+                                    <p class="user-comment">{{item.content}}</p>
+                                </div>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+            <div class="footer-bar">
+                <audio ref="audio" :src="songurl" @pause="pause" @play="play" controls loop autoplay
+                    class="audioplayer">亲 您的浏览器不支持html5的audio标签</audio>
+            </div>
+            <div class="video-bar" v-show="mvdisplay">
+                <video ref="video" :src="mvurl" controls="controls" class="videoplayer">亲 您的浏览器不支持html5的video标签</video>
+                <div class="mask" @click="closemv"></div>
+            </div>
+        </div>
+    </div>
+</body>
+<!-- 开发环境版本，包含了有帮助的命令行警告 -->
+<script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+<script src="https://unpkg.com/axios/dist/axios.min.js"></script>
+<script src="musicplayer.js"></script>
+
+</html>
