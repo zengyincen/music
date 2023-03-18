@@ -15,4 +15,4 @@ vue实现网页音乐播放器（含MV）|音乐播放旋转唱片动画
 4. vue 数据绑定
 5. axios 网络请求
 
-效果链接：https://xingxinz.github.io/musicplayer/musicplayer.html
+效果链接：https://zengyincen.github.io/music/musicplayer.html
